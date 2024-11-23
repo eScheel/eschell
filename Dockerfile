@@ -1,8 +1,3 @@
-#docker build -t jscheel8086/eschell .
-#docker run --network testnet --name eschell --mount source=testvol,target=/mnt/testvol/ -p 22:22/tcp --privileged --detach -it jscheel8086/eschell:latest
-#docker push jscheel8086/eschell
-#docker builder prune
-
 FROM oraclelinux:9
 
 # Update the OS and install required software.
