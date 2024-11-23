@@ -2,10 +2,10 @@ FROM oraclelinux:9
 
 # Update the OS and install required software.
 RUN dnf update -y && dnf upgrade -y
-RUN dnf install -y openssh openssh-server net-tools curl unzip wget python3 nmap nano cifs-utils
+RUN dnf install -y openssh openssh-server net-tools curl unzip wget python3 pip nmap nano cifs-utils
 
 # ...
-RUN mkdir /mnt/escheel-cloud-share
+#RUN mkdir /mnt/escheel-cloud-share
 COPY ./bin/ /usr/local/bin/
 RUN chmod +x -R /usr/local/bin/*
 
@@ -44,6 +44,20 @@ RUN yum install -y yum-utils
 RUN yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 RUN yum -y install terraform
 
-# Install speedtest-cli
-RUN wget -O /root/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+# Configure python3
+RUN python3 -m venv /root/.pyenv
 
+# Install speedtest-cli
+RUN wget -O /root/.pyenv/bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+
+# Create and fill setup script.
+RUN touch /root/setup.sh
+RUN echo 'echo "Change root password."' >> /root/setup.sh
+RUN echo 'passwd' >> /root/setup.sh
+RUN echo 'echo "Login to Azure CLI."' >> /root/setup.sh
+RUN echo 'az login' >> /root/setup.sh
+RUN echo 'echo "Authenicate AzCopy."' >> /root/setup.sh
+RUN echo 'azcopy login' >> /root/setup.sh
+RUN echo 'echo "Login with AWS CLI."' >> /root/setup.sh
+RUN echo 'aws configure' >> /root/setup.sh
+RUN chmod +x /root/setup.sh
