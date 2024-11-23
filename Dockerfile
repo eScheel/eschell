@@ -49,6 +49,7 @@ RUN python3 -m venv /root/.pyenv
 
 # Install speedtest-cli
 RUN wget -O /root/.pyenv/bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+RUN chmod +x /root/.pyenv/bin/speedtest-cli
 
 # Create and fill setup script.
 RUN touch /root/setup.sh
