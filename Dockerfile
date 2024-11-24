@@ -44,6 +44,9 @@ RUN yum install -y yum-utils
 RUN yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 RUN yum -y install terraform
 
+# Install PowerShell.
+RUN dnf install https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell-7.4.6-1.rh.x86_64.rpm
+
 # Configure python3
 RUN python3 -m venv /root/.pyenv
 
